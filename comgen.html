@@ -1,0 +1,30 @@
+<h1>Command Generator</h1>
+<form name="template_form">
+    <h2>command template</h2>
+    <textarea name="template" rows="2" cols="128" placeholder="python3 script.py ?{var0}"></textarea>
+    <br>
+    <input type="button" value="Generate" onclick="generate_button()"><br>
+</form>
+<form name="output">
+    <textarea name="output" rows="10" cols="128" placeholder="output"></textarea>
+</form>
+<form name="form0">
+    variable name:<input type="text" name="var0" value="var0"><br>
+    <textarea name="list" rows="10" cols="60" placeholder="list"></textarea>
+</form>
+
+<script>
+
+ function generate_button(){
+
+     var template=document.template_form.template.value;
+     var list_str =document.form0.list.value;
+
+     l = list_str.split('\n')
+     var re = new RegExp("\\?{var0}","g");
+     replaced = l.map(e => template.replace(re,e));
+     catted = replaced.reduce((a,b)=>a+"\n"+b);
+     document.output.output.value = catted;
+}
+
+</script>
