@@ -1,25 +1,25 @@
 <head>
-<title>Command Generator</title>
-<style type="text/css">
- html{
-     background-color:#FFFDF3;
- }
- body{
-     background-color:#ffffff;
-     color : #000000;
-     margin-right: auto;
-     margin-left : auto;
-     padding:30px;
-     border:4px solid #E8DB6D;
-     width:900px;
- }
- h1,h2,h3{
-     margin: 2px;
- }
- textarea{
-     font-family:"Courier New", Consolas, monospace;
- }
-</style>
+    <title>Command Generator</title>
+    <style type="text/css">
+     html{
+         background-color:#FFFDF3;
+     }
+     body{
+         background-color:#ffffff;
+         color : #000000;
+         margin-right: auto;
+         margin-left : auto;
+         padding:30px;
+         border:4px solid #E8DB6D;
+         width:900px;
+     }
+     h1,h2,h3{
+         margin: 2px;
+     }
+     textarea{
+         font-family:"Courier New", Consolas, monospace;
+     }
+    </style>
 </head>
 <body>
     <h1>Command Generator</h1>
@@ -27,7 +27,7 @@
         <h3>template</h3>
         <textarea name="template" rows="2" cols="100" placeholder="python3 script.py ?{var0}"></textarea>
         <br>
-        <input id="generate_button" type="button" value="Generate" onclick="generate_button()"><br>
+        <input id="generate_button" type="button" value="Generate" onclick="generate()"><br>
     </form>
     <form name="output">
         <h3>output</h3>
@@ -41,15 +41,40 @@
 
     <script>
 
-     function generate_button(){
-
+     function decode_params()
+     {
+         text = location.search.substr(1);
+         sep = '&';
+         eq = '=';
+         params = text.split(sep).reduce(function(obj, v) {
+             var pair = v.split(eq);
+             obj[pair[0]] = decodeURIComponent(pair[1]);
+             return obj;
+         }, {});
+         if (params['template']) {
+             document.template_form.template.value = decodeURIComponent(params['template']);
+         }
+         if (params['var0']) {
+             document.form0.list.value = decodeURIComponent(params['var0']);
+         }
+     }
+     function encode_params()
+     {
+         params = {'template':document.template_form.template.value, 'var0':document.form0.list.value};
+         params_str = ['template','var0'].filter(key => params[key]).map(key => key+'='+encodeURIComponent(params[key])).reduce((a,b) => a+'&'+b)
+         new_uri = (location.pathname.split('/').pop()+'?'+params_str);
+         history.replaceState({},'',new_uri);
+     }
+     function generate() {
          var template=document.template_form.template.value;
-         var list =document.form0.list.value.split("\n");
+         var list =document.form0.list.value.split("\n").map(a=>a.replace('\r',''));
 
          var re = new RegExp("\\?{"+document.form0.varname.value+"}","g");
          replaced = list.map(e => template.replace(re,e));
          catted = replaced.reduce((a,b)=>a+"\n"+b);
-         document.output.output.value =catted;
+         document.output.output.value = catted;
+         encode_params();
      }
+     decode_params();
     </script>
 </body>
