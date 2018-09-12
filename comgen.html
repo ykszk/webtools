@@ -59,6 +59,7 @@ sbatch --gres=gpu:1 -c 4 -D $(pwd) --wrap="singularity exec --nv -B /win/salmon/
 sbatch --gres=gpu:1 -c 4 -D $(pwd) --wrap=""
 singularity exec --nv -B /win/salmon/user /simg/AIO.simg python3
 -B /win/scallop/user
+?{var0}
 </pre>
         </details>
     </div>
