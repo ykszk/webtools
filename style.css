@@ -21,7 +21,7 @@ textarea,pre{
 }
 
 .variableArea {
-    width:300px;
+    width:220px;
 }
 
 textarea {
@@ -59,6 +59,11 @@ input[type="button"]:active {
     overflow: hidden;
 }
 
+ul{
+    padding:0px;
+    margin:0px;
+}
 li{
     display: inline-block;
+    padding:2px;
 }
