@@ -51,3 +51,19 @@ function reset()
     document.output.output.value='';
     encode_params();
 }
+
+prependChild = function(el){
+    this.insertBefore(el, this.firstChild)
+}
+
+function add_variable()
+{
+    var variables = document.getElementById("variables");
+    var listItems = variables.getElementsByTagName("li");
+    var index = listItems.length-2
+    last = listItems[index];
+    cloned = last.cloneNode(true);
+    cloned.getElementsByTagName('form')[0].name = 'form'+(index+1);
+    cloned.getElementsByTagName('input')[0].value = 'var'+(index+1);
+    variables.insertBefore(cloned, last.nextSibling);
+}

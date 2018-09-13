@@ -9,20 +9,34 @@
         <textarea name="template" rows="2" placeholder="python3 script.py ?{var0}"></textarea>
     </form>
 
-    <form name="form0">
-        <h3>variable</h3>
-        name:<input type="text" name="varname" value="var0"><br>
-        <textarea name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
-    </form>
-
+    <h3>variable(s)</h3>
+    <div>
+        <ul class="boxContainer" id="variables">
+        <li>
+            <form name="form0">
+                name:<input type="text" name="varname" value="var0"><br>
+                <textarea class="variableArea" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
+            </form>
+        </li>
+        <li>
+            <input id="add_button" type="button" value="Add" onclick="add_variable()">
+        </li>
+    </uo>
+    </div>
     <form name="output">
         <h3>output</h3>
         <textarea name="output" rows="20" placeholder="python3 script.py Alice&#13;&#10;python3 script.py Bob&#13;&#10;python3 script.py Charlie&#13;&#10;python3 script.py Dave"></textarea>
     </form>
-    <div style="display:inline-flex">
-        <input id="generate_button" type="button" value="Generate" onclick="generate()"><br>
-        <input id="save_button" type="button" value="Save" onclick="encode_params()"><br>
-        <input id="reset_button" type="button" value="Reset" onclick="reset()"><br>
+    <div class="boxContainer">
+        <div class="box">
+            <input id="generate_button" type="button" value="Generate" onclick="generate()">
+        </div>
+        <div class="box">
+            <input id="save_button" type="button" value="Save" onclick="encode_params()">
+        </div>
+        <div class="box">
+            <input id="reset_button" type="button" value="Reset" onclick="reset()">
+        </div>
     </div>
 
     <div>
@@ -39,8 +53,7 @@ sbatch --gres=gpu:1 -c 4 -D $(pwd) --wrap="singularity exec --nv -B /win/salmon/
 sbatch --gres=gpu:1 -c 4 -D $(pwd) --wrap=""
 singularity exec --nv -B /win/salmon/user /simg/AIO.simg python3
 singularity exec --nv -B /win/salmon/user -B /win/scallop/user /simg/AIO.simg python3
-?{var0}
-            </pre>
+?{var0}</pre>
         </details>
     </div>
 
