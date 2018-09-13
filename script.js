@@ -42,6 +42,9 @@ function reset()
     document.form0.list.value='';
     document.form0.varname.value='var0';
     document.output.output.value='';
+    while (document.getElementById("variables").getElementsByTagName("li").length > 3) {
+        document.getElementById("variables").getElementsByTagName("li")[2].remove();
+    }
     encode_params();
 }
 
@@ -71,7 +74,9 @@ function encode_params()
     var vars = getVarValues();
     var varNames = getVarNames();
     for (var i = 0; i < vars.length; i++) {
-        params.push([varNames[i],vars[i]]);
+        if (vars[i] != "") {
+            params.push([varNames[i],vars[i]]);
+        }
     }
     if (params.length > 0) {
         params_str = params.map(name_values => name_values[0]+'='+encodeURIComponent(name_values[1].join("\n"))).join("&")
