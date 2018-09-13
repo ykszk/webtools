@@ -4,7 +4,6 @@ html{
 
 body{
     background-color:#ffffff;
-    color : #000000;
     margin-right: auto;
     margin-left : auto;
     padding:30px;
@@ -42,12 +41,12 @@ input[type="button"] {
 }
 
 input[type="button"]:hover {
-    background-color: #F8CB5D;
+    background-color: #D8F050;
     transition: background-color 0.1s linear;
 }
 
 input[type="button"]:active {
-    background-color: #FF0000;
+    background-color: #44FF44;
 }
 
 .box{
