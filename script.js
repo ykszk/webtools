@@ -66,7 +66,7 @@ function add_variable(name, value="")
 
 function encode_params()
 {
-    params = [['template',document.template_form.template.value]]
+    params = [['template',[document.template_form.template.value]]]
     if (params[0][1]=="") {
         params.pop()
     }
