@@ -67,3 +67,21 @@ li{
     display: inline-block;
     padding:2px;
 }
+
+input.seq{
+    width:50px;
+    text-align:center;
+}
+input[type="number"]{
+    width:35px;
+    text-align:center;
+}
+
+#variables div{
+    padding:2px;
+}
+
+#variables div:hover{
+    border:2px solid #cccccc;
+    padding:0px;
+}

@@ -13,10 +13,22 @@
     <div>
         <ul class="boxContainer" id="variables">
             <li style="display: none;">
+                <div>
                 <form name="form-1">
                     name:<input type="text" name="varname" value="var-1"><br>
                     <textarea class="variableArea" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
                 </form>
+                <details>
+                    <summary>Seq</summary>
+                    <form name="seq-1">
+                        <input type="text" class="seq" title="format" name="format" value="%d" placeholder="%d">
+                        <input type="number" title="start" name="start" step="1" value="0">
+                        <input type="number" title="end" name="end" step="1" value="10">
+                        <input type="number" title="step" name="step" step="1" value="1">
+                        <input type="button" name="seqButton" value="Seq" onclick="seq()">
+                    </form>
+                </details>
+                </div>
             </li>
             <li>
                 <input id="add_button" type="button" value="Add" onclick="add_variable()">

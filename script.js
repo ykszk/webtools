@@ -3,22 +3,19 @@ Array.prototype.flatten = function() {
 };
 
 function getVarNames() {
-    return Array.prototype.slice.call(document.getElementById("variables").getElementsByTagName("form")).map(form=>form.varname.value).slice(1);
+    return Array.prototype.slice.call(document.getElementById("variables").getElementsByTagName("form")).filter(form=>form.name.startsWith("form")).map(form=>form.varname.value).slice(1);
 }
 function getVarValues() {
-    var varForms = document.getElementById("variables").getElementsByTagName("form");
-    var varValues = Array.prototype.slice.call(varForms).map(function(form) {
+    var varForms = Array.prototype.slice.call(document.getElementById("variables").getElementsByTagName("form"));
+    varForms = varForms.filter(form=>form.name.startsWith("form"));
+    var varValues = varForms.map(function(form) {
         var list =form.list.value.split("\n")
         if (document.advanced.skip_empty.checked) {
             list = list.filter(a=>a.length>0);
         }
         return list;
     });
-    if (varValues.length <= 2) {
-        return [varValues.slice(1)];
-    } else {
-        return varValues.slice(1);
-    }
+    return varValues.slice(1);
 }
 
 function generate() {
@@ -30,7 +27,7 @@ function generate() {
         var varName = varNames[i];
         var list = vars[i];
         var re = new RegExp("\\?{"+varName+"}","g");
-        templates = list.map(e => templates.map(t=>t.replace(re,e))).flatten();
+        templates = list.map(e =>templates.map(t=>t.replace(re,e))).flatten();
     }
 
     document.output.output.value = templates.join('\n');
@@ -62,6 +59,8 @@ function add_variable(name, value="")
     }
     cloned.getElementsByTagName('input')[0].value = name;
     cloned.getElementsByTagName('textarea')[0].value = value;
+    cloned.getElementsByTagName('form')[1].name = 'seq'+(index);
+    cloned.getElementsByTagName('form')[1].seqButton.onclick=metaSeq(index);
     variables.insertBefore(cloned, last.nextSibling);
 }
 
@@ -105,4 +104,44 @@ function decode_params()
             add_variable(params[i][0],decodeURIComponent(params[i][1]));
         }
     }
+}
+
+function padZeros(i, figs){
+    return ( "0".repeat(figs-1) + i ).substr(-figs);
+}
+function sprintf(format, i){
+    var re = new RegExp("%(0\\d*)?d");
+    var m = format.match(re);
+    if (m === null) {
+        return null;
+    } else {
+        if (m.length > 1) {
+            var figs = Math.max(1, Number(m[1]));
+            return format.replace(re, padZeros(i, figs));
+        } else {
+            return format.replace(re, String(i));
+        }
+    }
+}
+
+function metaSeq(index)
+{
+    function seq()
+    {
+        var seqNode = document.getElementsByName("seq"+index)[0];//document.seq0;
+        var start = Number(seqNode.start.value);
+        var end = Number(seqNode.end.value);
+        var step = Number(seqNode.step.value);
+        var format = seqNode.format.value;
+        if (sprintf(format,0) === null) {
+            alert("Invalid format : "+format);
+            return;
+        }
+        var lines = []
+        for (var i = 0; i < end; i += step) {
+            lines.push(sprintf(format, i));
+        }
+        document.getElementsByName('form'+index)[0].list.value = lines.join("\n");
+    }
+    return seq;
 }
