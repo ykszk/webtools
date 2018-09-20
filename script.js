@@ -138,7 +138,7 @@ function metaSeq(index)
             return;
         }
         var lines = []
-        for (var i = 0; i < end; i += step) {
+        for (var i = start; i < end; i += step) {
             lines.push(sprintf(format, i));
         }
         document.getElementsByName('form'+index)[0].list.value = lines.join("\n");
