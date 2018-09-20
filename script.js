@@ -29,8 +29,8 @@ function generate() {
         var re = new RegExp("\\?{"+varName+"}","g");
         templates = list.map(e =>templates.map(t=>t.replace(re,e))).flatten();
     }
-
-    document.output.output.value = templates.join('\n');
+    generated = templates.join('\n');
+    document.output.output.value = templates.join('\n') + '\n';
 }
 
 function reset()
