@@ -48,11 +48,11 @@ function add_variable(name, value="")
 {
     var variables = document.getElementById("variables");
     var listItems = variables.getElementsByTagName("li");
-    var index = listItems.length-2
-    last = listItems[index];
+    var index = Number(listItems[listItems.length-2].getElementsByTagName('form')[0].name.slice(4))+1
     cloned = listItems[0].cloneNode(true);
     cloned.style.display=null;
     cloned.getElementsByTagName('form')[0].name = 'form'+(index);
+    cloned.id = 'var'+(index);
     if (name === undefined) {
         name = 'var'+(index)
     }
@@ -60,7 +60,11 @@ function add_variable(name, value="")
     cloned.getElementsByTagName('textarea')[0].value = value;
     cloned.getElementsByTagName('form')[1].name = 'seq'+(index);
     cloned.getElementsByTagName('form')[1].seqButton.onclick=metaSeq(index);
-    variables.insertBefore(cloned, last.nextSibling);
+    cloned.getElementsByTagName('form')[0].closeButton.onclick=metaDeleteVariable(index);
+    if (index==0) {
+        cloned.getElementsByTagName('input')[1].style = 'display:none;'
+    }
+    variables.insertBefore(cloned, listItems[listItems.length-2].nextSibling);
 }
 
 function encode_params()
@@ -143,4 +147,16 @@ function metaSeq(index)
         document.getElementsByName('form'+index)[0].list.value = lines.join("\n");
     }
     return seq;
+}
+
+function metaDeleteVariable(index)
+{
+    function deleteVariable()
+    {
+        if (index > 0) {
+            var li = document.getElementById('var'+index);
+            li.parentNode.removeChild(li);
+        }
+    }
+    return deleteVariable;
 }

@@ -14,43 +14,47 @@
     <div>
         <ul class="boxContainer" id="variables">
             <li style="display: none;">
-                <div>
-                <form name="form-1">
-                    name:<input type="text" name="varname" value="var-1"><br>
-                    <textarea class="variableArea" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
-                </form>
-                <details>
-                    <summary>Seq</summary>
-                    <form name="seq-1">
-                        <input type="text" class="seq" title="format" name="format" value="%d" placeholder="%d">
-                        <input type="number" title="start" name="start" step="1" value="0">
-                        <input type="number" title="end" name="end" step="1" value="10">
-                        <input type="number" title="step" name="step" step="1" value="1">
-                        <input type="button" name="seqButton" value="Seq" onclick="seq()">
+                <div class="wHover">
+                    <form name="form-1" class="lessmargin">
+                        <div class="container">
+                            name:<input type="text" name="varname" style="flex-grow:1;" value="var-1"><input type="button" name="closeButton" class="closeButton" value="❌">
+                        </div>
+                        <div>
+                            <textarea class="variableArea" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
+                        </div>
                     </form>
-                </details>
+                    <details>
+                        <summary>Seq</summary>
+                        <form name="seq-1" class="lessmargin">
+                            <input type="text" class="seq" title="format" name="format" value="%d" placeholder="%d">
+                            <input type="number" title="start" name="start" step="1" value="0">
+                            <input type="number" title="end" name="end" step="1" value="10">
+                            <input type="number" title="step" name="step" step="1" value="1">
+                            <input type="button" class="default" name="seqButton" value="Seq">
+                        </form>
+                    </details>
                 </div>
             </li>
             <li>
-                <input id="add_button" type="button" value="Add" onclick="add_variable()">
+                <input id="add_button" class="default" type="button" value="Add" onclick="add_variable()">
             </li>
     </uo>
+    </div>
+    <div class="boxContainer">
+        <div class="box">
+            <input id="generate_button" type="button" class="default" value="Generate" onclick="generate()">
+        </div>
+        <div class="box">
+            <input id="save_button" type="button" class="default" value="Save State" onclick="encode_params()">
+        </div>
+        <div class="box">
+            <input id="reset_button" type="button" class="default" value="Reset" onclick="reset()">
+        </div>
     </div>
     <form name="output">
         <h3>output</h3>
         <textarea name="output" rows="20" placeholder="python3 script.py Alice&#13;&#10;python3 script.py Bob&#13;&#10;python3 script.py Charlie&#13;&#10;python3 script.py Dave"></textarea>
     </form>
-    <div class="boxContainer">
-        <div class="box">
-            <input id="generate_button" type="button" value="Generate" onclick="generate()">
-        </div>
-        <div class="box">
-            <input id="save_button" type="button" value="Save State" onclick="encode_params()">
-        </div>
-        <div class="box">
-            <input id="reset_button" type="button" value="Reset" onclick="reset()">
-        </div>
-    </div>
 
     <div>
         <details>

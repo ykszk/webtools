@@ -20,6 +20,10 @@ textarea,pre{
     font-family:"Courier New", Consolas, monospace;
 }
 
+.lessmargin {
+    margin: 2px;
+}
+
 .variableArea {
     width:220px;
 }
@@ -36,22 +40,28 @@ pre{
 
 input[type="text"] {
     padding:2px;
+    width:120px;
 }
 
-input[type="button"] {
+input[type="button"].default {
     padding:10px;
     background-color: #F8FBAD;
     border: 1px solid #E8DB6D;
     transition: background-color 1s linear;
 }
 
-input[type="button"]:hover {
+input[type="button"].default:hover {
     background-color: #D8F050;
     transition: background-color 0.1s linear;
 }
 
-input[type="button"]:active {
+input[type="button"].default:active {
     background-color: #44FF44;
+}
+
+.closeButton {
+    padding:0px;
+    margin:0px;
 }
 
 .box{
@@ -81,13 +91,13 @@ input[type="number"]{
     text-align:center;
 }
 
-#variables div{
-    padding:2px;
+div.wHover{
+    padding:6px;
 }
 
-#variables div:hover{
+div.wHover:hover{
     border:2px solid #cccccc;
-    padding:0px;
+    padding:4px;
 }
 
 input:focus, textarea:focus{
@@ -98,4 +108,8 @@ input:focus, textarea:focus{
 
 summary:focus {
     outline: none;
+}
+
+div.container {
+  display: flex;
 }
