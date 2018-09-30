@@ -17,10 +17,10 @@
                 <div class="wHover">
                     <form name="form-1" class="lessmargin">
                         <div class="container">
-                            name:<input type="text" name="varname" style="flex-grow:1;" value="var-1"><input type="button" name="closeButton" class="closeButton" value="❌">
+                            name:<input type="text" title="variable name" name="varname" style="flex-grow:1;" value="var-1"><input type="button" title="delete this variable" name="closeButton" class="closeButton" value="❌">
                         </div>
                         <div>
-                            <textarea class="variableArea" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
+                            <textarea class="variableArea" title="variable values" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
                         </div>
                     </form>
                     <details>
@@ -30,25 +30,25 @@
                             <input type="number" title="start" name="start" step="1" value="0">
                             <input type="number" title="end" name="end" step="1" value="10">
                             <input type="number" title="step" name="step" step="1" value="1">
-                            <input type="button" class="default" name="seqButton" value="Seq">
+                            <input type="button" title="Generate a sequence" class="default" name="seqButton" value="Seq">
                         </form>
                     </details>
                 </div>
             </li>
             <li>
-                <input id="add_button" class="default" type="button" value="Add" onclick="add_variable()">
+                <input id="add_button" title="Add new variable" class="default" type="button" value="Add" onclick="add_variable()">
             </li>
     </uo>
     </div>
     <div class="boxContainer">
         <div class="box">
-            <input id="generate_button" type="button" class="default" value="Generate" onclick="generate()">
+            <input id="generate_button" title="Generate" type="button" class="default" value="Generate" onclick="generate()">
         </div>
         <div class="box">
-            <input id="save_button" type="button" class="default" value="Save State" onclick="encode_params()">
+            <input id="save_button" title="Save template and variables" type="button" class="default" value="Save State" onclick="encode_params()">
         </div>
         <div class="box">
-            <input id="reset_button" type="button" class="default" value="Reset" onclick="reset()">
+            <input id="reset_button" title="Reset all" type="button" class="default" value="Reset" onclick="reset()">
         </div>
     </div>
     <form name="output">
