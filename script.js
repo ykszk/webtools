@@ -56,13 +56,22 @@ function add_variable(name, value="")
     if (name === undefined) {
         name = 'var'+(index)
     }
-    cloned.getElementsByTagName('input')[0].value = name;
+    var varname_input = cloned.getElementsByTagName('input').varname;
+    varname_input.value = name;
     cloned.getElementsByTagName('textarea')[0].value = value;
     cloned.getElementsByTagName('form')[1].name = 'seq'+(index);
     cloned.getElementsByTagName('form')[1].seqButton.onclick=metaSeq(index);
     cloned.getElementsByTagName('form')[0].closeButton.onclick=metaDeleteVariable(index);
+    cloned.getElementsByTagName('form')[0].copyButton.onclick=function(){
+        var ta = document.createElement("textarea");
+        ta.value = '?{'+varname_input.value+'}';
+        document.body.appendChild(ta)
+        ta.select()
+        document.execCommand("copy")
+        ta.parentElement.removeChild(ta)
+    }
     if (index==0) {
-        cloned.getElementsByTagName('input')[1].style = 'display:none;'
+        cloned.getElementsByTagName('form')[0].closeButton.style = 'display:none;'; // no close button for the 1st variable
     }
     variables.insertBefore(cloned, listItems[listItems.length-2].nextSibling);
 }
