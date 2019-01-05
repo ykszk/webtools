@@ -46,6 +46,8 @@ function generate() {
     }
     document.output.output.value = templates.join('\n') + '\n';
     encode_params();
+    document.getElementById('copy_all_button').disabled = false;
+    document.getElementById('copy_first_button').disabled = false;
 }
 
 function reset()
@@ -58,6 +60,18 @@ function reset()
         document.getElementById("variables").getElementsByTagName("li")[2].remove();
     }
     encode_params();
+    document.getElementById('copy_all_button').disabled = true;
+    document.getElementById('copy_first_button').disabled = true;
+}
+
+function copy_to_clipboard(s)
+{
+    var ta = document.createElement("textarea");
+    ta.value = s;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.parentElement.removeChild(ta);
 }
 
 function add_variable(name, value="")
@@ -80,17 +94,26 @@ function add_variable(name, value="")
     cloned.getElementsByTagName('form')[1].seqButton.onclick=metaSeq(index);
     cloned.getElementsByTagName('form')[0].closeButton.onclick=metaDeleteVariable(index);
     cloned.getElementsByTagName('form')[0].copyButton.onclick=function(){
-        var ta = document.createElement("textarea");
-        ta.value = '?{'+varname_input.value+'}';
-        document.body.appendChild(ta)
-        ta.select()
-        document.execCommand("copy")
-        ta.parentElement.removeChild(ta)
+        copy_to_clipboard('?{'+varname_input.value+'}');
     }
     if (index==0) {
         cloned.getElementsByTagName('form')[0].closeButton.style = 'display:none;'; // no close button for the 1st variable
     }
     variables.insertBefore(cloned, listItems[listItems.length-2].nextSibling);
+}
+
+function copy_all_lines()
+{
+    if (document.output.output.value) {
+        copy_to_clipboard(document.output.output.value);
+    }
+}
+
+function copy_first_line()
+{
+    if (document.output.output.value) {
+        copy_to_clipboard(document.output.output.value.split('\n')[0]);
+    }
 }
 
 function encode_params()

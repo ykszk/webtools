@@ -51,6 +51,12 @@
             <input id="generate_button" title="Generate" type="button" class="default" value="Generate" onclick="generate()">
         </div>
         <div class="box">
+            <input id="copy_first_button" title="Copy first line to the clipboard" type="button" class="default" value="📋First Line" onclick="copy_first_line()" disabled>
+        </div>
+        <div class="box">
+            <input id="copy_all_button" title="Copy all lines to the clipboard" type="button" class="default" value="📋All" onclick="copy_all_lines()" disabled>
+        </div>
+        <div class="box">
             <input id="save_button" title="Save template and variables" type="button" class="default" value="Save State" onclick="encode_params()">
         </div>
         <div class="box">

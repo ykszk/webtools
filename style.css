@@ -59,6 +59,11 @@ input[type="button"].default:active {
     background-color: #44FF44;
 }
 
+input[type="button"].default:disabled {
+    background-color: #F8FBAD;
+    border: 1px solid #E8DB6D;
+}
+
 .closeButton {
     padding:0px;
     margin:0px;
