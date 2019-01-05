@@ -2,34 +2,50 @@ Array.prototype.flatten = function() {
     return Array.prototype.concat.apply([], this);
 };
 
+function getVarForms() {
+    return Array.prototype.slice.call(document.getElementById("variables").getElementsByTagName("form")).filter(form=>form.name.startsWith("form")).slice(1); // first element is "form-1"
+}
+
 function getVarNames() {
-    return Array.prototype.slice.call(document.getElementById("variables").getElementsByTagName("form")).filter(form=>form.name.startsWith("form")).map(form=>form.varname.value).slice(1);
+    return getVarForms().map(form=>form.varname.value);
 }
 function getVarValues() {
-    var varForms = Array.prototype.slice.call(document.getElementById("variables").getElementsByTagName("form"));
-    varForms = varForms.filter(form=>form.name.startsWith("form"));
-    var varValues = varForms.map(function(form) {
+    var varForms = getVarForms();
+    var varValues = Array.from(varForms.entries()).map(function([form_id,form]) {
         var list =form.list.value.split("\n")
         if (document.advanced.skip_empty.checked) {
             list = list.filter(a=>a.length>0);
         }
-        return list;
+        return list
     });
-    return varValues.slice(1);
+    return varValues;
+}
+function getVarJoins() {
+    var varForms = getVarForms();
+    var varJoin = Array.from(varForms.entries()).map(function([form_id,form]) {
+        join_form = document.getElementById('join'+form_id)
+        return {checked:join_form.join_lines.checked, separator:join_form.separator.value};
+    });
+    return varJoin;
 }
 
 function generate() {
     var vars = getVarValues();
     var varNames = getVarNames();
+    var varJoins = getVarJoins();
 
     var templates=[document.template_form.template.value];
     for (var i =0; i < varNames.length; i++) {
         var varName = varNames[i];
         var list = vars[i];
+        if (varJoins[i].checked) {
+            list = [list.join(varJoins[i].separator)];
+        }
         var re = new RegExp("\\?{"+varName+"}","g");
         templates = templates.map(template =>list.map(e=>template.replace(re,e))).flatten();
     }
     document.output.output.value = templates.join('\n') + '\n';
+    encode_params();
 }
 
 function reset()
@@ -59,6 +75,7 @@ function add_variable(name, value="")
     var varname_input = cloned.getElementsByTagName('input').varname;
     varname_input.value = name;
     cloned.getElementsByTagName('textarea')[0].value = value;
+    cloned.getElementsByTagName('form')[2].id = 'join'+(index);
     cloned.getElementsByTagName('form')[1].name = 'seq'+(index);
     cloned.getElementsByTagName('form')[1].seqButton.onclick=metaSeq(index);
     cloned.getElementsByTagName('form')[0].closeButton.onclick=metaDeleteVariable(index);

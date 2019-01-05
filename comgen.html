@@ -26,13 +26,17 @@
                         </div>
                     </form>
                     <details>
-                        <summary>Seq</summary>
+                        <summary>advanced</summary>
                         <form name="seq-1" class="lessmargin">
                             <input type="text" class="seq" title="format" name="format" value="%d" placeholder="%d">
                             <input type="number" title="start" name="start" step="1" value="0">
                             <input type="number" title="end" name="end" step="1" value="10">
                             <input type="number" title="step" name="step" step="1" value="1">
                             <input type="button" title="Generate a sequence" class="default" name="seqButton" value="Seq">
+                        </form>
+                        <form id="join-1" class="lessmargin">
+                            <input type="checkbox" name="join_lines" value="1" title="check to join lines"> Join lines by
+                            <input type="text" name="separator" class="seq" title="separator" name="format" value="," placeholder=",">
                         </form>
                     </details>
                 </div>
