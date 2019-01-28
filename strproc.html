@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title id="title">String Processor</title>
+        <!-- <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/superhero/bulmaswatch.min.css"> -->
+        <link rel="stylesheet" href="bulma.min.css">
+        <tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    </head>
+    <body>
+        <section>
+            <header class="nav">
+                <div class="hero is-info is-bold">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h1 class="title">String Processor</h1>
+                            <h2 class="subtitle">s=input_text;<br>output_text=eval(script);</h2>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section>
+            <div class="container">
+                <div class="field">
+                    <div class="control">
+                        <div class="column">
+                            <textarea class="input" id="title_area" placeholder="Title" title="name of the script" onInput="title_changed()"></textarea>
+                        </div>
+                        <div class="column">
+                            <textarea class="textarea" id="script_area" placeholder="Script" title="JavaScript that processes the input string." onInput="script_changed(this)">s</textarea>
+                        </div>
+                        <div class="column">
+                            <textarea class="textarea" id="input_area" placeholder="Input" title="input string" onInput="input_changed(this)"></textarea>
+                        </div>
+                        <div class="column">
+                            <textarea class="textarea" id="output_area" placeholder="Output" title="output" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <h2 class="title is-2">Examples</h2>
+                <p>
+                    <a href="strproc.html?t=Count characters&s=s.length">Count characters</a>
+                </p>
+                <a href="strproc.html?t=Replace%20%27%5Cn%27%20with%20%27%20%27&s=s.replace(%2F%5Cn%2Fg%2C%27%20%27)">Replace '\n' with ' '</a>
+                    <p>
+                </p>
+                <p>
+                    <a href="strproc.html?t=Replace '\n' with '%2C'&s=s.replace(%2F\n%2Fg%2C'%2C')">Replace '\n' with ','</a>
+                </p>
+                <p>
+                    <a href="strproc.html?t=Replace '%2C' with '\n'&s=s.replace(%2F%2C%2Fg%2C'\n')">Replace ',' with '\n'</a>
+                </p>
+            </div>
+        </section>
+
+    </body>
+    <script type="text/javascript" src="strproc.js"></script>
+</html>
