@@ -1,93 +1,139 @@
-<head>
-    <title>Command Generator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-</head>
-<body>
-    <h1>Command Generator</h1>
-    <form name="template_form">
-        <h3>template</h3>
-        <textarea name="template" rows="2" placeholder="python3 script.py ?{var0}"></textarea>
-    </form>
+<html>
 
-    <h3>variable(s)</h3>
-    <div>
-        <ul class="boxContainer" id="variables">
-            <li style="display: none;">
-                <div class="wHover">
-                    <form name="form-1" class="lessmargin">
-                        <div class="container">
-                            name:<input type="text" title="variable name" name="varname" style="flex-grow:1;" value="var-1">
-                            <input type="button" title="copy variable name" name="copyButton" class="copyButton" value="📋">
-                            <input type="button" title="delete this variable" name="closeButton" class="closeButton" value="❌">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="darkly.css">
+        <!-- <link rel="stylesheet" href="bulma.min.css"> -->
+        <title>Command Generator</title>
+        <tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    </head>
+    <body>
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">Command generator</h1>
+                    <h2 class="subtitle">Shit happens</h2>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <h3 class="title is-3">Template</h3>
+                <form name="template_form">
+                    <textarea class="textarea" name="template" rows="2" placeholder="python3 script.py ?{var0}"></textarea>
+                </form>
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h3 class="title is-3">Variable</h3>
                         </div>
-                        <div>
-                            <textarea class="variableArea" title="variable values" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
+                        <div class="level-item">
+                            <input id="add_button" title="Add new variable" class="button is-primary" type="button" value="Add" onclick="add_variable()">
                         </div>
-                    </form>
-                    <details>
-                        <summary>advanced</summary>
-                        <form name="seq-1" class="lessmargin">
-                            <input type="text" class="seq" title="format" name="format" value="%d" placeholder="%d">
-                            <input type="number" title="start" name="start" step="1" value="0">
-                            <input type="number" title="end" name="end" step="1" value="10">
-                            <input type="number" title="step" name="step" step="1" value="1">
-                            <input type="button" title="Generate a sequence" class="default" name="seqButton" value="Seq">
+                    </div>
+                </div>
+
+                <div class="columns is-multiline" id="variables">
+                    <div class="column box is-one-third is-hidden" id="reference_variable">
+                        <form name="form-1" class="lessmargin">
+                            <div class="field has-addons">
+                                <div class="control is-expanded">
+                                    <input type="text" class="input" title="variable name" name="varname" value="var-1">
+                                </div>
+                                <div class="control">
+                                    <input type="button" class="button is-primary" title="copy variable name" name="copyButton" class="copyButton" value="📋">
+                                </div>
+                                <div class="control" disabled>
+                                    <input type="button" class="button is-primary" title="delete this variable" name="closeButton" class="closeButton" value="❌" disabled>
+                                </div>
+                            </div>
+                            <textarea class="textarea" title="variable values" class="textarea" name="list" rows="20" placeholder="Alice&#13;&#10;Bob&#13;&#10;Charlie&#13;&#10;Dave"></textarea>
                         </form>
-                        <form id="join-1" class="lessmargin">
-                            <input type="checkbox" name="join_lines" value="1" title="check to join lines"> Join lines by
-                            <input type="text" name="separator" class="seq" title="separator" name="format" value="," placeholder=",">
+                        <details>
+                            <summary>advanced</summary>
+                            <form name="seq-1">
+                                <div class="field has-addons">
+                                    <p class="control">
+                                        <input type="text" class="input is-small has-text-centered" title="format" name="format" value="%d" placeholder="%d">
+                                    </p>
+                                    <p class="control">
+                                        <input type="number" class="input is-small has-text-centered" title="start" name="start" step="1" value="0">
+                                    </p>
+                                    <p class="control">
+                                        <input type="number" class="input is-small has-text-centered" title="end" name="end" step="1" value="10">
+                                    </p>
+                                    <p class="control">
+                                        <input type="number" class="input is-small has-text-centered" title="step" name="step" step="1" value="1">
+                                    </p>
+                                    <p class="control">
+                                        <input type="button" title="Generate a sequence" class="button is-primary is-small" name="seqButton" value="Seq">
+                                    </p>
+                                </div>
+                            </form>
+                            <form id="join-1">
+                                <div class="level">
+                                    <p class="level-item">
+                                        <input type="checkbox" class="checkbox" name="join_lines" value="1" title="check to join lines">
+                                    </p>
+                                    <p class="level-item">
+                                        Join lines by
+                                    </p>
+                                    <p class="level-item is-expanded">
+                                        <input type="text" name="separator" class="input is-small" title="separator" name="format" value="," placeholder=",">
+                                    </p>
+                                </div>
+                            </form>
+                        </details>
+                    </div>
+                </div>
+                <h3 class="title">Buttons</h3>
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <input id="generate_button" title="Generate" type="button" class="button is-primary" value="Generate" onclick="generate()">
+                        </div>
+                        <div class="level-item">
+                            <input id="copy_first_button" title="Copy first line to the clipboard" type="button" class="button is-primary" value="📋First Line" onclick="copy_first_line()" disabled>
+                        </div>
+                        <div class="level-item">
+                            <input id="copy_all_button" title="Copy all lines to the clipboard" type="button" class="button is-primary" value="📋All" onclick="copy_all_lines()" disabled>
+                        </div>
+                        <div class="level-item">
+                            <input id="save_button" title="Save template and variables" type="button" class="button is-primary" value="Save State" onclick="encode_params()">
+                        </div>
+                        <div class="level-item">
+                            <input id="reset_button" title="Reset all" type="button" class="button is-primary" value="Reset" onclick="reset()">
+                        </div>
+                    </div>
+                </div>
+                <form name="output">
+                    <h3 class="title is-3">Output</h3>
+                    <textarea class="textarea" name="output" rows="20" placeholder="python3 script.py Alice&#13;&#10;python3 script.py Bob&#13;&#10;python3 script.py Charlie&#13;&#10;python3 script.py Dave"></textarea>
+                </form>
+                <h3 class="title is-3">Misc</h3>
+                <div>
+                    <details>
+                        <summary>Advanced</summary>
+                        <form name="advanced">
+                            <input type="checkbox" name="skip_empty" value="1" checked="checked">Skip empty line
                         </form>
                     </details>
-                </div>
-            </li>
-            <li>
-                <input id="add_button" title="Add new variable" class="default" type="button" value="Add" onclick="add_variable()">
-            </li>
-    </uo>
-    </div>
-    <div class="boxContainer">
-        <div class="box">
-            <input id="generate_button" title="Generate" type="button" class="default" value="Generate" onclick="generate()">
-        </div>
-        <div class="box">
-            <input id="copy_first_button" title="Copy first line to the clipboard" type="button" class="default" value="📋First Line" onclick="copy_first_line()" disabled>
-        </div>
-        <div class="box">
-            <input id="copy_all_button" title="Copy all lines to the clipboard" type="button" class="default" value="📋All" onclick="copy_all_lines()" disabled>
-        </div>
-        <div class="box">
-            <input id="save_button" title="Save template and variables" type="button" class="default" value="Save State" onclick="encode_params()">
-        </div>
-        <div class="box">
-            <input id="reset_button" title="Reset all" type="button" class="default" value="Reset" onclick="reset()">
-        </div>
-    </div>
-    <form name="output">
-        <h3>output</h3>
-        <textarea name="output" rows="20" placeholder="python3 script.py Alice&#13;&#10;python3 script.py Bob&#13;&#10;python3 script.py Charlie&#13;&#10;python3 script.py Dave"></textarea>
-    </form>
-
-    <div>
-        <details>
-            <summary>Advanced</summary>
-            <form name="advanced">
-                <input type="checkbox" name="skip_empty" value="1" checked="checked">Skip empty line
-            </form>
-        </details>
-        <details open="true">
-            <summary>Snippets</summary>
-            <pre>
+                    <details>
+                        <summary>Snippets</summary>
+                        <pre>
 sbatch --gres=gpu:1 -c 4 -D $(pwd) --wrap="singularity exec --nv -B /win/salmon/user /simg/AIO.simg python3"
 sbatch --gres=gpu:1 -c 4 -D $(pwd) --wrap=""
 singularity exec --nv -B /win/salmon/user /simg/AIO.simg python3
 singularity exec --nv -B /win/salmon/user -B /win/scallop/user /simg/AIO.simg python3
 ?{var0}</pre>
-        </details>
-    </div>
-
+                    </details>
+                </div>
+            </div>
+        </section>
+    </body>
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript">
      decode_params();
     </script>
-</body>
+</html>

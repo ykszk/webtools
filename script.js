@@ -77,9 +77,8 @@ function copy_to_clipboard(s)
 function add_variable(name, value="")
 {
     var variables = document.getElementById("variables");
-    var listItems = variables.getElementsByTagName("li");
-    var index = Number(listItems[listItems.length-2].getElementsByTagName('form')[0].name.slice(4))+1
-    cloned = listItems[0].cloneNode(true);
+    var index = variables.childElementCount-1;//Number(listItems[listItems.length-2].getElementsByTagName('form')[0].name.slice(4))+1
+    cloned = document.getElementById("reference_variable").cloneNode(true);
     cloned.style.display=null;
     cloned.getElementsByTagName('form')[0].name = 'form'+(index);
     cloned.id = 'var'+(index);
@@ -96,10 +95,12 @@ function add_variable(name, value="")
     cloned.getElementsByTagName('form')[0].copyButton.onclick=function(){
         copy_to_clipboard('?{'+varname_input.value+'}');
     }
-    if (index==0) {
-        cloned.getElementsByTagName('form')[0].closeButton.style = 'display:none;'; // no close button for the 1st variable
+    cloned.classList.remove('is-hidden');
+    if (index!=0) {
+        cloned.getElementsByTagName('input')[2].disabled = null; // enable delete button
     }
-    variables.insertBefore(cloned, listItems[listItems.length-2].nextSibling);
+
+    variables.appendChild(cloned);
 }
 
 function copy_all_lines()
